@@ -94,27 +94,29 @@
     function dataPost() {
         const link = document.getElementById('url').value.trim()
         axios.post('/api/link', {
-            real_link: link
-        })
-        .then(function (res) {
-            let data = []
-            const genLink = `http://127.0.0.1:8000/${res.data.data.gen_link}`
-            const temp = localStorage.getItem('LOCAL_LINKS')
-            const dataLink = dataToObject(res.data.data.gen_link, link)
+                real_link: link
+            })
+            .then(function(res) {
+                let data = []
+                const genLink = `http://127.0.0.1:8000/${res.data.data.gen_link}`
+                const temp = localStorage.getItem('LOCAL_LINKS')
+                const dataLink = dataToObject(res.data.data.gen_link, link)
 
-            if (temp) {
-                data = JSON.parse(temp)
-            }
+                if (temp) {
+                    data = JSON.parse(temp)
+                }
 
-            data.unshift(dataLink)
-            localStorage.setItem('LOCAL_LINKS', JSON.stringify(data))
-            cleanData()
+                data.unshift(dataLink)
+                localStorage.setItem('LOCAL_LINKS', JSON.stringify(data))
+                cleanData()
 
-            document.getElementById('bodyTable').insertAdjacentHTML('afterbegin', `<tr class="border"><td class="p-4"><a href="${genLink}">${genLink}</a></td><td class="p-4"><a href="${link}">${link}</a></td></tr>`)
-        })
-        .catch(function (err) {
-            console.error(err)
-        })
+                document.getElementById('bodyTable').insertAdjacentHTML('afterbegin',
+                    `<tr class="border"><td class="p-4"><a href="${genLink}">${genLink}</a></td><td class="p-4"><a href="${link}">${link}</a></td></tr>`
+                    )
+            })
+            .catch(function(err) {
+                console.error(err)
+            })
     }
 
     function dataToObject(genLink, realLink) {
@@ -128,11 +130,13 @@
         document.getElementById('url').value = ""
     }
 
-    function loadData(){
+    function loadData() {
         let fetch = JSON.parse(localStorage.getItem('LOCAL_LINKS'))
 
         fetch.reverse().forEach(element => {
-            document.getElementById('bodyTable').insertAdjacentHTML('afterbegin', `<tr class="border"><td class="p-4"><a href="http://127.0.0.1:8000/${element.gen_link}">http://127.0.0.1:8000/${element.gen_link}</a></td><td class="p-4"><a href="${element.real_link}">${element.real_link}</a></td></tr>`)
+            document.getElementById('bodyTable').insertAdjacentHTML('afterbegin',
+                `<tr class="border"><td class="p-4"><a href="http://127.0.0.1:8000/${element.gen_link}">http://127.0.0.1:8000/${element.gen_link}</a></td><td class="p-4"><a href="${element.real_link}">${element.real_link}</a></td></tr>`
+                )
         });
     }
 </script>
