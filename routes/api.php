@@ -20,4 +20,4 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 
 Route::resource('link', LinkController::class)->only([
     'store'
-]);
+])->middleware('throttle:5,10');

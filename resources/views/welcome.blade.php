@@ -53,6 +53,9 @@
             <p class="text-xl font-bold text-gray-700 text-center">
                 Masukkan URL yang akan dipendekkan disini!
             </p>
+            <p class="text-center font-thin text-xs text-red-500">
+                Maksimal 5 kali pemendekan link setiap 10 menit
+            </p>
             <form id="dataLink" action="">
                 <div class="space-y-2">
                     <div>
@@ -67,7 +70,7 @@
             </form>
         </div>
 
-        <div class="m-auto p-6 max-w-3xl">
+        <div class="m-auto p-6 max-w-xl">
             <table class="table-fixed border-2 border-green-400">
                 <thead>
                     <tr class="border">
@@ -101,6 +104,7 @@
                 const genLink = `{{ route('homepage') }}/${res.data.data.gen_link}`
                 const temp = localStorage.getItem('LOCAL_LINKS')
                 const dataLink = dataToObject(res.data.data.gen_link, link)
+                const shortUrl = shortText(link)
 
                 if (temp) {
                     data = JSON.parse(temp)
@@ -112,11 +116,11 @@
                 cleanData()
 
                 document.getElementById('bodyTable').insertAdjacentHTML('afterbegin',
-                    `<tr class="border"><td class="p-4"><a href="${genLink}" target="_blank">${genLink}</a></td><td class="p-4"><a href="${link}" target="_blank" class="overflow-ellipsis">${link}</a></td></tr>`
+                    `<tr class="border"><td class="p-4"><a href="${genLink}" target="_blank">${genLink}</a></td><td class="p-4"><a href="${link}" target="_blank" class="overflow-ellipsis">${shortUrl}</a></td></tr>`
                 )
             })
             .catch(function(err) {
-                console.error(err)
+                alert(err)
             })
     }
 
@@ -133,12 +137,17 @@
 
     function loadData() {
         let fetch = JSON.parse(localStorage.getItem('LOCAL_LINKS'))
-
+        
         fetch.reverse().forEach(element => {
+            let shortUrl = shortText(element.real_link)
             document.getElementById('bodyTable').insertAdjacentHTML('afterbegin',
-                `<tr class="border"><td class="p-4"><a href="{{ route('homepage') }}/${element.gen_link}" target="_blank">{{ route('homepage') }}/${element.gen_link}</a></td><td class="p-4"><a href="${element.real_link}" target="_blank" class="overflow-ellipsis">${element.real_link}</a></td></tr>`
+                `<tr class="border"><td class="p-4"><a href="{{ route('homepage') }}/${element.gen_link}" target="_blank">{{ route('homepage') }}/${element.gen_link}</a></td><td class="p-4"><a href="${element.real_link}" target="_blank" class="overflow-ellipsis">${shortUrl}</a></td></tr>`
             )
         });
+    }
+
+    function shortText(text) {
+        return (text.length > 60) ? text.substr(0, 59) + '&hellip;' : text
     }
 </script>
 
