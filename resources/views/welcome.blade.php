@@ -98,7 +98,7 @@
             })
             .then(function(res) {
                 let data = []
-                const genLink = `http://127.0.0.1:8000/${res.data.data.gen_link}`
+                const genLink = `{{ route('homepage') }}/${res.data.data.gen_link}`
                 const temp = localStorage.getItem('LOCAL_LINKS')
                 const dataLink = dataToObject(res.data.data.gen_link, link)
 
@@ -107,12 +107,13 @@
                 }
 
                 data.unshift(dataLink)
+
                 localStorage.setItem('LOCAL_LINKS', JSON.stringify(data))
                 cleanData()
 
                 document.getElementById('bodyTable').insertAdjacentHTML('afterbegin',
-                    `<tr class="border"><td class="p-4"><a href="${genLink}">${genLink}</a></td><td class="p-4"><a href="${link}">${link}</a></td></tr>`
-                    )
+                    `<tr class="border"><td class="p-4"><a href="${genLink}" target="_blank">${genLink}</a></td><td class="p-4"><a href="${link}" target="_blank" class="overflow-ellipsis">${link}</a></td></tr>`
+                )
             })
             .catch(function(err) {
                 console.error(err)
@@ -135,8 +136,8 @@
 
         fetch.reverse().forEach(element => {
             document.getElementById('bodyTable').insertAdjacentHTML('afterbegin',
-                `<tr class="border"><td class="p-4"><a href="http://127.0.0.1:8000/${element.gen_link}">http://127.0.0.1:8000/${element.gen_link}</a></td><td class="p-4"><a href="${element.real_link}">${element.real_link}</a></td></tr>`
-                )
+                `<tr class="border"><td class="p-4"><a href="{{ route('homepage') }}/${element.gen_link}" target="_blank">{{ route('homepage') }}/${element.gen_link}</a></td><td class="p-4"><a href="${element.real_link}" target="_blank" class="overflow-ellipsis">${element.real_link}</a></td></tr>`
+            )
         });
     }
 </script>
