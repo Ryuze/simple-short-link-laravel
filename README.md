@@ -23,3 +23,6 @@ When you press enter after filling the URL you want to shorted, it will generate
 
 ## Note
 Still on development, other feature and cleaner code will be added later.
+
+## Server is Alive!
+you can check how this website looks and feel at http://47.250.54.32/
