@@ -5,7 +5,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <title>Laravel</title>
+    <title>Simple Short Link</title>
 
     <!-- Fonts -->
     <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700&display=swap" rel="stylesheet">
@@ -31,10 +31,10 @@
                 <a href="{{ route('homepage') }}">
                     <div class="ml-4">
                         <div class="font-bold text-xl text-gray-700">
-                            Lapen
+                            Simple Shlink
                         </div>
                         <div class="font-thin text-xs text-gray-700">
-                            Lah, kok pendek!
+                            URL panjang? pendekin aja!
                         </div>
                     </div>
                 </a>
