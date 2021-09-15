@@ -17,6 +17,7 @@ When you press enter after filling the URL you want to shorted, it will generate
 - Clone this repo
 - Cd to simple-short-link-laravel
 - Setting .env with your own setting choice
+- composer install
 - npm install && npm run dev
 - php artisan migrate
 - php artisan serve
